@@ -4,7 +4,7 @@ import { LuMapPin } from 'react-icons/lu';
 
 const JobCard = ({ job }) => {
   return (
-    <div className="border rounded-md w-full sm:w-[48%] md:w-[32%] flex flex-col gap-3 hover:bg-gradient-to-r cursor-pointer hover:from-[#fff6e7] p-4 shadow-sm hover:shadow-md transition duration-200 ease-in-out">
+    <div className="border rounded-md w-full sm:w-[48%] md:w-[32%] min-w-[22rem] flex flex-col gap-3 hover:bg-gradient-to-r cursor-pointer hover:from-[#fff6e7] p-4 shadow-sm hover:shadow-md transition duration-200 ease-in-out">
       {/* Job Title */}
       <div className="flex flex-col">
         <h2 className="font-medium text-base sm:text-lg lg:text-md text-gray-800">
