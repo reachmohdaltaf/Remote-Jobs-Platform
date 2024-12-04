@@ -2,7 +2,7 @@ import React from "react";
 import { FiSearch } from "react-icons/fi";
 import { LuMapPin } from "react-icons/lu";
 import Image from "next/image";
-import location from '../../public/location.png'
+import location from '../../../public/location.png'
 
 const Searchbar = () => {
   return (
@@ -25,7 +25,7 @@ const Searchbar = () => {
             placeholder="City, state or country"
             className="p-2 px-1 outline-none placeholder:text-sm w-full"
           />
-          <Image src={location} width={24} height={24} />
+          <Image alt={location} src={location} width={24} height={24} />
         </div>
         {/* Find Job Button */}
         <div className="w-full lg:w-[40%] p-3">

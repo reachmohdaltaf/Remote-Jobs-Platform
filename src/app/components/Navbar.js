@@ -1,7 +1,7 @@
-import logo from '../../public/logo.png'
-import notificationicon from '../../public/notification_icon.png'
+import logo from '../../../public/logo.png'
+import notificationicon from '../../../public/notification_icon.png'
 import Image from 'next/image';
-import userprofile from '../../public/user_profile.png'
+import userprofile from '../../../public/user_profile.png'
 const Navbar = () => {
   return (
     <div className='text-xl shadow-sm flex items-center justify-center h-14'>
