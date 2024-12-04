@@ -8,14 +8,39 @@ import InfiniteScroll from "react-infinite-scroll-component";
 export default function Home() {
   const [filterData, setFilterData] = useState({
     jobTitle: "",
+    price: "",
+    location: "",
   });
 
   const { jobs, loading, error, fetchMoreJobs, hasMore } = useFetchJobs();
 
-  // Filter jobs based on jobTitle
-  const filteredJobs = jobs.filter((job) =>
-    job.title.toLowerCase().includes(filterData.jobTitle.toLowerCase())
-  );
+  const filteredJobs = jobs.filter((job) => {
+    const { jobTitle, price, location } = filterData;
+
+    // Match job title
+    const matchesTitle = job.title
+      .toLowerCase()
+      .includes(jobTitle.toLowerCase());
+
+    // Match salary range if provided
+    let matchesSalary = true; // Default to true if no salary range is selected
+    if (price) {
+      const [minSalary, maxSalary] = price
+        .split("-")
+        .map((value) => (value === "+" ? Infinity : parseInt(value, 10))); // Parse salary range
+      const jobSalary = job.salary; // Assuming job.salary is a numeric value
+      matchesSalary =
+        jobSalary >= minSalary &&
+        (maxSalary === Infinity || jobSalary <= maxSalary);
+    }
+
+    // Match location if provided
+    const matchesLocation = location
+      ? job.location.toLowerCase().includes(location.toLowerCase())
+      : true; // Default to true if no location filter is set
+
+    return matchesTitle && matchesSalary && matchesLocation;
+  });
 
   return (
     <div className="flex flex-col items-center gap-7">

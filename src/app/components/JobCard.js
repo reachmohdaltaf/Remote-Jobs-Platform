@@ -17,7 +17,7 @@ const JobCard = ({ job }) => {
             {job.remote || 'Remote'}
           </span>
           <span className="text-gray-500 sm:text-sm lg:text-xs">
-            Salary: {job.salary || 'Not mentioned'}
+            Salary: ₹{job.salary || 'Not mentioned'}
           </span>
         </h2>
       </div>

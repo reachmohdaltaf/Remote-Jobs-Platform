@@ -3,8 +3,7 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 
-const FilterMenu = ({ visible, selectedTags, setSelectedTags }) => {
-  const [salaryRange, setSalaryRange] = useState("");
+const FilterMenu = ({ visible, selectedTags, setSelectedTags, setSalaryRange}) => {
 
   if (!visible) return null;
 
@@ -22,6 +21,10 @@ const FilterMenu = ({ visible, selectedTags, setSelectedTags }) => {
     "App Development",
   ];
 
+  const handleChange = (e) => {
+    setSalaryRange(e.target.value)
+  }
+
   const toggleTag = (tag) => {
     if (selectedTags.includes(tag)) {
       setSelectedTags(selectedTags.filter((t) => t !== tag));
@@ -32,14 +35,15 @@ const FilterMenu = ({ visible, selectedTags, setSelectedTags }) => {
 
   return (
     <div className="absolute top-full left-0 right-0 bg-white shadow-lg rounded-md mt-1 z-10 p-3 border">
-      <div className="flex flex-col gap-2 mb-6">
+      <div className="flex flex-col gap-3 mt-5 mb-5">
         <p className="text-xs text-gray-700 ml-2 flex items-center gap-1 font-medium">
-          Search by
+          Filter
           <IoIosArrowDown className="text-gray-600" />
         </p>
         <div className="ml-2 flex items-center gap-3 relative">
         
-          <select className="bg-gray-200  text-gray-700 px-5 py-2 w-fit rounded-sm cursor-pointer">
+          <select  className="bg-gray-100 text-sm  text-gray-500 px-5 py-2 w-fit rounded-md outline-none cursor-pointer"
+            onChange={handleChange}>
             <option value="">Select Salary Range</option>
             <option value="0-25000">₹0 - ₹25,000</option>
             <option value="25001-50000">₹25,001 - ₹50,000</option>

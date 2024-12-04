@@ -34,3 +34,4 @@ const DynamicMenu = ({ visible, jobs, setInputValue, setIsFocused }) => {
 };
 
 export default DynamicMenu;
+

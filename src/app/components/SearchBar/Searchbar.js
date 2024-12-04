@@ -5,13 +5,20 @@ import Image from "next/image";
 import FilterMenu from "./FilterMenu";
 import DynamicMenu from "./DynamicMenu";
 import location from "../../../../public/location.png";
+import LocationMenu from "./LocationMenu";
 
 const Searchbar = ({ jobs, setFilterData }) => {
   const [inputValue, setInputValue] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
-  const searchbarRef = useRef(null); // To track clicks outside
+  const [salaryRange, setSalaryRange] = useState("");
+  const [locationInput, setLocationInput] = useState("");
+  const [isLocationFocused, setIsLocationFocused] = useState(false);
 
+  const searchbarRef = useRef(null);
+
+  const locations = ["New York", "Los Angeles", "San Francisco", "Seattle", "Austin"];
+  
   const jobTitles = jobs.map((job) => job.title);
   const filteredJobs = jobTitles
     .filter((title) => title.toLowerCase().includes(inputValue.toLowerCase()))
@@ -24,10 +31,11 @@ const Searchbar = ({ jobs, setFilterData }) => {
   const handleSubmit = () => {
     setFilterData({
       jobTitle: inputValue,
-    })
+      price: salaryRange,
+      location: locationInput,
+    });
   };
 
-  // Handle clicks outside of the menu or input
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -35,6 +43,7 @@ const Searchbar = ({ jobs, setFilterData }) => {
         !searchbarRef.current.contains(event.target)
       ) {
         setIsFocused(false);
+        setIsLocationFocused(false);
       }
     };
 
@@ -45,14 +54,12 @@ const Searchbar = ({ jobs, setFilterData }) => {
   return (
     <div
       className="w-full flex justify-center mt-5 px-2 cursor-pointer"
-      ref={searchbarRef} // Attach the ref to the searchbar container
+      ref={searchbarRef}
     >
       <div className="flex flex-col lg:flex-row w-full lg:w-[90%] border rounded-md relative">
-        {/* Search by Job */}
+        {/* Job Search Input */}
         <div className="flex w-full items-center py-3 px-4 border-b lg:border-b-0 lg:border-r relative flex-wrap gap-2">
           <FiSearch className="text-xl text-[#0a65cc] mr-2" />
-
-          {/* Input Field */}
           <input
             type="text"
             placeholder="Search by: Job title, Position, Keyword..."
@@ -61,7 +68,6 @@ const Searchbar = ({ jobs, setFilterData }) => {
             onChange={(e) => setInputValue(e.target.value)}
             onFocus={() => setIsFocused(true)}
           />
-          {/* Conditional Menus */}
           {isFocused && (
             <>
               {inputValue.trim() === "" ? (
@@ -69,26 +75,40 @@ const Searchbar = ({ jobs, setFilterData }) => {
                   visible={true}
                   selectedTags={selectedTags}
                   setSelectedTags={setSelectedTags}
+                  setSalaryRange={setSalaryRange}
                 />
               ) : (
                 <DynamicMenu
                   visible={true}
                   jobs={filteredJobs}
                   setInputValue={setInputValue}
-                  setIsFocused = {setIsFocused}
+                  setIsFocused={setIsFocused}
+                  setSelectedTags={setSelectedTags}
                 />
               )}
             </>
           )}
         </div>
-        {/* Location */}
-        <div className="flex items-center w-full py-3 px-4 border-b lg:border-b-0">
+        {/* Location Input */}
+        <div className="flex items-center w-full py-3 px-4 border-b lg:border-b-0 relative">
           <LuMapPin className="text-xl text-[#0a65cc] mr-2" />
           <input
             type="text"
             placeholder="City, state or country"
             className="p-2 px-1 outline-none placeholder:text-sm w-full"
+            value={locationInput}
+            onChange={(e) => setLocationInput(e.target.value)}
+            onFocus={() => setIsLocationFocused(true)}
           />
+          {isLocationFocused && (
+            <LocationMenu
+              visible={true}
+              locations={locations}
+              inputValue={locationInput}
+              setInputValue={setLocationInput}
+              setIsFocused={setIsLocationFocused}
+            />
+          )}
           <Image alt="location icon" src={location} width={24} height={24} />
         </div>
         {/* Find Job Button */}
