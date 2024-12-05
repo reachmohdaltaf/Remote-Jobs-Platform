@@ -61,7 +61,7 @@ export default function Home() {
           <p className="error-message">{error}</p>
         ) : (
           <InfiniteScroll
-            dataLength={filteredJobs.length} //i have Use filtered jobs
+            dataLength={filteredJobs.length} //i Use filtered jobs
             next={fetchMoreJobs}
             hasMore={hasMore}
             loader={

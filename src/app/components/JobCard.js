@@ -1,8 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { LuMapPin } from 'react-icons/lu';
 
 const JobCard = ({ job }) => {
+  // Assuming each job has a unique `id` field
+  const jobId = job.id || job.title; // Fallback to job.title if no job.id exists
+
+  // Check localStorage for the initial bookmark state
+  const [isBookmarked, setIsBookmarked] = useState(() => {
+    const bookmarkedJobs = JSON.parse(localStorage.getItem('bookmarkedJobs')) || [];
+    return bookmarkedJobs.includes(jobId);  // Use jobId here
+  });
+
+  const toggleBookmark = () => {
+    setIsBookmarked((prev) => {
+      const newBookmarkState = !prev;
+      const bookmarkedJobs = JSON.parse(localStorage.getItem('bookmarkedJobs')) || [];
+
+      if (newBookmarkState) {
+        // Add to bookmarks
+        bookmarkedJobs.push(jobId);
+      } else {
+        // Remove from bookmarks
+        const index = bookmarkedJobs.indexOf(jobId);
+        if (index > -1) {
+          bookmarkedJobs.splice(index, 1);
+        }
+      }
+
+      // Save updated bookmarks to localStorage
+      localStorage.setItem('bookmarkedJobs', JSON.stringify(bookmarkedJobs));
+      return newBookmarkState;
+    });
+  };
+
   return (
     <div className="border rounded-md w-full sm:w-[48%] md:w-[32%] min-w-[22rem] flex flex-col gap-3 hover:bg-gradient-to-r cursor-pointer hover:from-[#fff6e7] p-4 shadow-sm hover:shadow-md transition duration-200 ease-in-out">
       {/* Job Title */}
@@ -49,12 +80,15 @@ const JobCard = ({ job }) => {
         </div>
 
         {/* Bookmark Icon */}
-        <div className="flex lg:w-16 md:w-10 sm:w-10 items-center justify-end mt-1">
+        <div
+          className="flex lg:w-16 md:w-10 sm:w-10 items-center justify-end mt-1 cursor-pointer"
+          onClick={toggleBookmark}
+        >
           <Image
-            src="/bookmark.png"
+            src={isBookmarked ? "/bookmark-filled.png" : "/bookmark-unfilled.png"}
             alt="Bookmark Icon"
-            width={24}
-            height={24}
+            width={20}
+            height={20}
             className="object-contain"
           />
         </div>

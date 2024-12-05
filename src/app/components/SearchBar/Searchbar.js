@@ -17,8 +17,14 @@ const Searchbar = ({ jobs, setFilterData }) => {
 
   const searchbarRef = useRef(null);
 
-  const locations = ["New York", "Los Angeles", "San Francisco", "Seattle", "Austin"];
-  
+  const locations = [
+    "New York",
+    "Los Angeles",
+    "San Francisco",
+    "Seattle",
+    "Austin",
+  ];
+
   const jobTitles = jobs.map((job) => job.title);
   const filteredJobs = jobTitles
     .filter((title) => title.toLowerCase().includes(inputValue.toLowerCase()))
@@ -66,9 +72,9 @@ const Searchbar = ({ jobs, setFilterData }) => {
             className="p-2 px-1 outline-none placeholder:text-sm flex-grow"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            onFocus={() =>{
-              setIsFocused(true)
-              setIsLocationFocused(false)
+            onFocus={() => {
+              setIsFocused(true);
+              setIsLocationFocused(false);
             }}
           />
           {isFocused && (
@@ -101,9 +107,9 @@ const Searchbar = ({ jobs, setFilterData }) => {
             className="p-2 px-1 outline-none placeholder:text-sm w-full"
             value={locationInput}
             onChange={(e) => setLocationInput(e.target.value)}
-            onFocus={() =>{
-              setIsLocationFocused(true)
-              setIsFocused(false)
+            onFocus={() => {
+              setIsLocationFocused(true);
+              setIsFocused(false);
             }}
           />
           {isLocationFocused && (
@@ -115,7 +121,16 @@ const Searchbar = ({ jobs, setFilterData }) => {
               setIsFocused={setIsLocationFocused}
             />
           )}
-          <Image alt="location icon" src={location} width={24} height={24} />
+
+          <Image
+            alt="location icon"
+            src={location}
+            width={24}
+            height={24}
+            className={`  ${
+              isLocationFocused ? "scale-125 transition" : ""
+            }`}
+          />
         </div>
         {/* Find Job Button */}
         <div className="w-full lg:w-[40%] p-3">
