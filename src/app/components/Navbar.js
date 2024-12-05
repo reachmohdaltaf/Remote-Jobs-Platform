@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const Navbar = () => {
   return (
-    <div className='text-xl shadow-sm flex items-center justify-center h-14'>
+    <div className='bg-white text-xl shadow-sm flex items-center justify-center h-14'>
       <div className='w-full sm:w-[90%] h-full flex items-center justify-between px-2'>
         {/* Logo Section */}
         <Link href={"/"} className="logo font-semibold flex items-center gap-2 cursor-pointer"> 

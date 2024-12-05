@@ -66,7 +66,10 @@ const Searchbar = ({ jobs, setFilterData }) => {
             className="p-2 px-1 outline-none placeholder:text-sm flex-grow"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            onFocus={() => setIsFocused(true)}
+            onFocus={() =>{
+              setIsFocused(true)
+              setIsLocationFocused(false)
+            }}
           />
           {isFocused && (
             <>
@@ -98,7 +101,10 @@ const Searchbar = ({ jobs, setFilterData }) => {
             className="p-2 px-1 outline-none placeholder:text-sm w-full"
             value={locationInput}
             onChange={(e) => setLocationInput(e.target.value)}
-            onFocus={() => setIsLocationFocused(true)}
+            onFocus={() =>{
+              setIsLocationFocused(true)
+              setIsFocused(false)
+            }}
           />
           {isLocationFocused && (
             <LocationMenu

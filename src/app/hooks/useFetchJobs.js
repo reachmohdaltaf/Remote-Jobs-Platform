@@ -17,6 +17,7 @@ export default function useFetchJobs() {
       const newJobs = await fetchJobsData(offset); // Pass offset for pagination
       setJobs((prevJobs) => [...prevJobs, ...newJobs]);
       setOffset((prevOffset) => prevOffset + 1);
+     
       if (newJobs.length === 0) setHasMore(false); // If no jobs are returned, stop loading
     } catch (err) {
       setError(err.message);

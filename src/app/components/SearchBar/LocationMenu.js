@@ -1,5 +1,5 @@
+import { fetchLocations } from "@/app/api/locationApi";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
 const LocationMenu = ({ visible, inputValue, setInputValue, setIsFocused }) => {
   const [filteredLocations, setFilteredLocations] = useState([]);
@@ -10,19 +10,10 @@ const LocationMenu = ({ visible, inputValue, setInputValue, setIsFocused }) => {
 
     setLoading(true);
 
-    // OpenCage Geocoder API URL
-    axios
-      .get("https://api.opencagedata.com/geocode/v1/json", {
-        params: {
-          q: inputValue,
-          key: "7a973b98f8a642b880889379e13d9fb7", // Replace with your OpenCage API key
-          language: "en",
-          limit: 10, // Limit the number of results
-        },
-      })
-      .then((response) => {
-        const locationsData = response.data.results || [];
-        setFilteredLocations(locationsData);
+    // Use the fetchLocations API function
+    fetchLocations(inputValue)
+      .then((locations) => {
+        setFilteredLocations(locations);
         setLoading(false);
       })
       .catch(() => {
