@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { LuMapPin } from 'react-icons/lu';
 
 const JobCard = ({ job }) => {
-  // Assuming each job has a unique `id` field
-  const jobId = job.id || job.title; // Fallback to job.title if no job.id exists
+  const jobId = job.id || job.title; 
+  console.log(job);
 
-  // Check localStorage for the initial bookmark state
   const [isBookmarked, setIsBookmarked] = useState(() => {
     const bookmarkedJobs = JSON.parse(localStorage.getItem('bookmarkedJobs')) || [];
-    return bookmarkedJobs.includes(jobId);  // Use jobId here
+    return bookmarkedJobs.includes(jobId);  
   });
 
   const toggleBookmark = () => {
@@ -48,7 +47,7 @@ const JobCard = ({ job }) => {
             {job.remote || 'Remote'}
           </span>
           <span className="text-gray-500 sm:text-sm lg:text-xs">
-            Salary: ₹{job.salary || 'Not mentioned'}
+            Salary: {job.salary || 'Not mentioned'}
           </span>
         </h2>
       </div>
@@ -58,7 +57,7 @@ const JobCard = ({ job }) => {
         {/* Company Logo */}
         <div className="flex gap-3 items-center">
           <Image
-            src="/google_logo.png"
+            src={job.companyLogo?.url || '/google_logo.png'} // Use job.companyLogo if available
             alt="Company Logo"
             width={44}
             height={44}
@@ -68,7 +67,7 @@ const JobCard = ({ job }) => {
           {/* Company Details */}
           <div className="flex flex-col">
             <h2 className="font-medium text-sm sm:text-[0.9rem] sm:text-base text-gray-700">
-              {job.company || 'No Company'}
+              {job.companyName || 'No Company'}
             </h2>
             <div className="flex gap-1 items-center">
               <LuMapPin className="text-[#646b75]" />

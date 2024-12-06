@@ -1,40 +1,49 @@
-<<<<<<< HEAD
-# Remote-Jobs-Platform
-=======
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Remote Job Listing Platform
 
-## Getting Started
+The **Remote Job Listing Platform** is a modern, responsive web application that transforms legacy HTML API responses into a dynamic, user-friendly interface for job seekers. This project is a part of the **Explorin x IntelxLabs Frontend Engineering Internship Task** and addresses critical challenges in building a next-generation remote job platform.
 
-First, run the development server:
+## Key Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Core Functionality
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **HTML Parsing**:  
+  - Parsed HTML responses from a legacy API to extract structured job data, including titles, locations, salaries, and descriptions.  
+  - Implemented support for multiple legacy API response formats and handled malformed or inconsistent data gracefully.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Job Listing Page**:  
+  - Developed a pixel-perfect UI based on provided Figma designs.  
+  - Implemented responsive layouts optimized for desktop and mobile.  
+  - Added infinite scrolling for seamless job browsing.  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Advanced Filtering**:  
+  - Integrated filters for keywords, locations, and salary ranges.  
+  - Ensured real-time filter updates and smooth synchronization with infinite scrolling.
 
-## Learn More
+- **State Management**:  
+  - Used **React Query** for efficient data fetching, caching, and state management.  
+  - Added error handling and loading indicators for a seamless user experience.
 
-To learn more about Next.js, take a look at the following resources:
+### Extended Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Accessibility**: Enabled keyboard navigation for key actions.  
+- **Job Bookmarking**: Implemented `localStorage` to save preferred job listings for users.  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Technologies Used
 
-## Deploy on Vercel
+- **Next.js**: Framework for building the application with server-side rendering capabilities.  
+- **Tailwind CSS**: Utility-first CSS framework for rapid and consistent styling.  
+- **React Query**: For API integration, caching, and managing app state.  
+- **Headless UI**: For accessible, unstyled UI components.  
+- **Vercel**: For deployment and hosting.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Installation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
->>>>>>> 1c3d9da (Feature addition and Styles Update)
+### Prerequisites
+
+- Node.js (>= 16.x)
+
+### Steps
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/remote-job-listing.git

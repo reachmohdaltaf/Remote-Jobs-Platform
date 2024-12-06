@@ -17,13 +17,7 @@ const Searchbar = ({ jobs, setFilterData }) => {
 
   const searchbarRef = useRef(null);
 
-  const locations = [
-    "New York",
-    "Los Angeles",
-    "San Francisco",
-    "Seattle",
-    "Austin",
-  ];
+
 
   const jobTitles = jobs.map((job) => job.title);
   const filteredJobs = jobTitles
@@ -34,12 +28,31 @@ const Searchbar = ({ jobs, setFilterData }) => {
     setSelectedTags(selectedTags.filter((t) => t !== tag));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    setIsLocationFocused(false)
+    setIsFocused(false)
+    e.preventDefault();
     setFilterData({
       jobTitle: inputValue,
       price: salaryRange,
       location: locationInput,
     });
+  };
+
+  // Function to reset all filters and input values
+  const resetFilters = () => {
+    setInputValue("");
+    setSalaryRange("");
+    setSelectedTags([]);
+    setFilterData({
+      jobTitle: "",
+      price: "",
+      location: "",
+    });
+  };
+
+  const resetLocationInput = () => {
+   setLocationInput("")
   };
 
   useEffect(() => {
@@ -52,24 +65,38 @@ const Searchbar = ({ jobs, setFilterData }) => {
         setIsLocationFocused(false);
       }
     };
+    
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Handle pressing ENTER globally to submit the form
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Enter") {
+        handleSubmit(e); // Call handleSubmit when ENTER is pressed
+        setIsFocused(true)
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [inputValue, locationInput, salaryRange, selectedTags]);
+
   return (
     <div
-      className="w-full flex justify-center mt-5 px-2 cursor-pointer"
+      className="w-full flex justify-center mt-2 px-2 cursor-pointer"
       ref={searchbarRef}
     >
-      <div className="flex flex-col lg:flex-row w-full lg:w-[90%] border rounded-md relative">
+      <div className="flex flex-col lg:flex-row w-full lg:w-[90%] border rounded-t-md relative">
         {/* Job Search Input */}
         <div className="flex w-full items-center py-3 px-4 border-b lg:border-b-0 lg:border-r relative flex-wrap gap-2">
           <FiSearch className="text-xl text-[#0a65cc] mr-2" />
           <input
             type="text"
             placeholder="Search by: Job title, Position, Keyword..."
-            className="p-2 px-1 outline-none placeholder:text-sm flex-grow"
+            className="p-2 px-1 outline-none placeholder:text-sm pr-5  flex-grow"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onFocus={() => {
@@ -77,6 +104,14 @@ const Searchbar = ({ jobs, setFilterData }) => {
               setIsLocationFocused(false);
             }}
           />
+          {inputValue && (
+            <button
+              onClick={resetFilters} // Reset function when "X" is clicked
+              className="absolute right-2   text-3xl text-gray-400"
+            >
+              &times;
+            </button>
+          )}
           {isFocused && (
             <>
               {inputValue.trim() === "" ? (
@@ -104,7 +139,7 @@ const Searchbar = ({ jobs, setFilterData }) => {
           <input
             type="text"
             placeholder="City, state or country"
-            className="p-2 px-1 outline-none placeholder:text-sm w-full"
+            className="p-2  pr-10 px-1 outline-none placeholder:text-sm w-full"
             value={locationInput}
             onChange={(e) => setLocationInput(e.target.value)}
             onFocus={() => {
@@ -112,22 +147,28 @@ const Searchbar = ({ jobs, setFilterData }) => {
               setIsFocused(false);
             }}
           />
+           {locationInput && (
+            <button
+              onClick={resetLocationInput} // Reset function when "X" is clicked
+              className="absolute right-12 top-3 text-3xl text-gray-400"
+            >
+              &times;
+            </button>
+          )}
           {isLocationFocused && (
             <LocationMenu
               visible={true}
-              locations={locations}
               inputValue={locationInput}
               setInputValue={setLocationInput}
               setIsFocused={setIsLocationFocused}
             />
           )}
-
           <Image
             alt="location icon"
             src={location}
             width={24}
             height={24}
-            className={`  ${
+            className={`${
               isLocationFocused ? "scale-125 transition" : ""
             }`}
           />

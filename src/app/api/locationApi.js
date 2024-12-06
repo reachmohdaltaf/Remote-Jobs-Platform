@@ -1,9 +1,9 @@
-// src/api/locationApi.js
+
 import axios from "axios";
 
-// Function to fetch locations from OpenCage API
+
 export const fetchLocations = async (query) => {
-  const API_KEY = "7a973b98f8a642b880889379e13d9fb7"; // Replace with your OpenCage API key
+  const API_KEY = "7a973b98f8a642b880889379e13d9fb7"; 
   const API_URL = "https://api.opencagedata.com/geocode/v1/json";
 
   try {

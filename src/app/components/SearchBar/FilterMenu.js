@@ -34,7 +34,7 @@ const FilterMenu = ({ visible, selectedTags, setSelectedTags, setSalaryRange}) =
   };
 
   return (
-    <div className="absolute top-full left-0 right-0 bg-white shadow-lg rounded-md mt-1 z-10 p-3 border">
+    <div className="absolute top-full left-0 right-0 bg-white shadow-lg rounded-b-md z-10 p-3 border">
       <div className="flex flex-col gap-3 mt-5 mb-5">
         <p className="text-xs text-gray-700 ml-2 flex items-center gap-1 font-medium">
           Filter

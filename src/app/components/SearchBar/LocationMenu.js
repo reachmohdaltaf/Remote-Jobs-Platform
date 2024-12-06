@@ -24,7 +24,7 @@ const LocationMenu = ({ visible, inputValue, setInputValue, setIsFocused }) => {
   if (!visible) return null;
 
   return (
-    <div className="absolute top-full left-0 w-full bg-white shadow-md border rounded-md z-10 max-h-40 overflow-y-auto">
+    <div className="absolute top-full left-0 w-full bg-white shadow-md border rounded-b-md z-10 max-h-40 overflow-y-auto">
       {loading ? (
         <div className="p-2 text-gray-500">Loading...</div>
       ) : filteredLocations.length > 0 ? (
