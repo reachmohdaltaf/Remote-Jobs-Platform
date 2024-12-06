@@ -10,7 +10,7 @@ import LocationMenu from "./LocationMenu";
 const Searchbar = ({ jobs, setFilterData }) => {
   const [inputValue, setInputValue] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedKeyword, setSelectedKeyword] = useState([]);
   const [salaryRange, setSalaryRange] = useState("");
   const [locationInput, setLocationInput] = useState("");
   const [isLocationFocused, setIsLocationFocused] = useState(false);
@@ -18,15 +18,11 @@ const Searchbar = ({ jobs, setFilterData }) => {
   const searchbarRef = useRef(null);
 
 
-
   const jobTitles = jobs.map((job) => job.title);
   const filteredJobs = jobTitles
     .filter((title) => title.toLowerCase().includes(inputValue.toLowerCase()))
     .slice(0, 8);
 
-  const removeTag = (tag) => {
-    setSelectedTags(selectedTags.filter((t) => t !== tag));
-  };
 
   const handleSubmit = (e) => {
     setIsLocationFocused(false)
@@ -36,6 +32,7 @@ const Searchbar = ({ jobs, setFilterData }) => {
       jobTitle: inputValue,
       price: salaryRange,
       location: locationInput,
+      keywords: selectedKeyword,
     });
   };
 
@@ -43,7 +40,7 @@ const Searchbar = ({ jobs, setFilterData }) => {
   const resetFilters = () => {
     setInputValue("");
     setSalaryRange("");
-    setSelectedTags([]);
+    setSelectedKeyword([]);
     setFilterData({
       jobTitle: "",
       price: "",
@@ -82,11 +79,11 @@ const Searchbar = ({ jobs, setFilterData }) => {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [inputValue, locationInput, salaryRange, selectedTags]);
+  }, [inputValue, locationInput, salaryRange, selectedKeyword]);
 
   return (
     <div
-      className="w-full flex justify-center mt-2 px-2 cursor-pointer"
+      className="w-full flex justify-center px-2 cursor-pointer"
       ref={searchbarRef}
     >
       <div className="flex flex-col lg:flex-row w-full lg:w-[90%] border rounded-t-md relative">
@@ -117,8 +114,8 @@ const Searchbar = ({ jobs, setFilterData }) => {
               {inputValue.trim() === "" ? (
                 <FilterMenu
                   visible={true}
-                  selectedTags={selectedTags}
-                  setSelectedTags={setSelectedTags}
+                  selectedTags={selectedKeyword}
+                  setSelectedTags={setSelectedKeyword}
                   setSalaryRange={setSalaryRange}
                 />
               ) : (
@@ -127,7 +124,7 @@ const Searchbar = ({ jobs, setFilterData }) => {
                   jobs={filteredJobs}
                   setInputValue={setInputValue}
                   setIsFocused={setIsFocused}
-                  setSelectedTags={setSelectedTags}
+                  setSelectedTags={setSelectedKeyword}
                 />
               )}
             </>

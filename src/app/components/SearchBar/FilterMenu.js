@@ -3,27 +3,31 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 
-const FilterMenu = ({ visible, selectedTags, setSelectedTags, setSalaryRange}) => {
-
+const FilterMenu = ({
+  visible,
+  selectedTags,
+  setSelectedTags,
+  setSalaryRange,
+}) => {
   if (!visible) return null;
 
-  const tags = [
-    "Development",
-    "DevOps",
-    "Machine Learning",
-    "Cybersecurity",
-    "Artificial Intelligence",
-    "Cloud Computing",
-    "Programming",
-    "Technology",
-    "Web Development",
-    "Data Science",
-    "App Development",
+  const keywords = [
+    "remote",
+    "work",
+    "software",
+    "Internship",
+    "Program",
+    "organization",
+    "development",
+    "successful",
+    "student",
+    "web Development",
+    "app Development",
   ];
 
   const handleChange = (e) => {
-    setSalaryRange(e.target.value)
-  }
+    setSalaryRange(e.target.value);
+  };
 
   const toggleTag = (tag) => {
     if (selectedTags.includes(tag)) {
@@ -41,15 +45,16 @@ const FilterMenu = ({ visible, selectedTags, setSelectedTags, setSalaryRange}) =
           <IoIosArrowDown className="text-gray-600" />
         </p>
         <div className="ml-2 flex items-center gap-3 relative">
-        
-          <select  className="bg-gray-100 text-sm  text-gray-500 px-5 py-2 w-fit rounded-md outline-none cursor-pointer"
-            onChange={handleChange}>
+          <select
+            className="bg-gray-100 text-sm text-gray-500 px-5 py-2 w-fit rounded-md outline-none cursor-pointer"
+            onChange={handleChange}
+          >
             <option value="">Select Salary Range</option>
-            <option value="0-25000">₹0 - ₹25,000</option>
-            <option value="25001-50000">₹25,001 - ₹50,000</option>
-            <option value="50001-75000">₹50,001 - ₹75,000</option>
-            <option value="75001-100000">₹75,001 - ₹1,00,000</option>
-            <option value="100001+">₹1,00,001 and above</option>
+            <option value="0-10000">$0 - $10000</option>
+            <option value="10001-20000">$10000 - $20000</option>
+            <option value="20001-50000">$20000 - $50000</option>
+            <option value="50001-80000">$50000 - $80000</option>
+            <option value="80001-10000000">$80000 - above</option>
           </select>
         </div>
       </div>
@@ -59,7 +64,7 @@ const FilterMenu = ({ visible, selectedTags, setSelectedTags, setSalaryRange}) =
           <FaArrowTrendUp className="text-gray-600" />
         </p>
         <div className="flex gap-2 flex-wrap">
-          {tags.map((tag) => (
+          {keywords.map((tag) => (
             <span
               key={tag}
               className={`px-3 py-1 rounded-full text-sm cursor-pointer ${
