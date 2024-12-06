@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { LuMapPin } from 'react-icons/lu';
+import { toast } from 'react-hot-toast';
 
 const JobCard = ({ job }) => {
   const jobId = job.id || job.title; 
@@ -11,7 +12,13 @@ const JobCard = ({ job }) => {
     return bookmarkedJobs.includes(jobId);  
   });
 
-  const toggleBookmark = () => {
+  const toggleBookmark = (event) => {
+    event.stopPropagation(); // Prevents event bubbling
+
+    if (!isBookmarked) {
+      toast.success(`Saved  !`);
+    } 
+
     setIsBookmarked((prev) => {
       const newBookmarkState = !prev;
       const bookmarkedJobs = JSON.parse(localStorage.getItem('bookmarkedJobs')) || [];
@@ -34,12 +41,19 @@ const JobCard = ({ job }) => {
   };
 
   return (
-    <a href={job.companyUrl} target='_blank' className="border rounded-md w-full sm:w-[48%] md:w-[32%] min-w-[22rem] flex flex-col gap-3 hover:bg-gradient-to-r cursor-pointer hover:from-[#fff6e7] p-4 shadow-sm hover:shadow-md transition duration-200 ease-in-out">
+    <div
+      className="border rounded-md w-full sm:w-[48%] md:w-[32%] min-w-[22rem] flex flex-col gap-3 hover:bg-gradient-to-r cursor-pointer hover:from-[#fff6e7] p-4 shadow-sm hover:shadow-md transition duration-200 ease-in-out"
+    >
       {/* Job Title */}
       <div className="flex flex-col">
-        <h2 className="font-medium text-base sm:text-lg lg:text-md text-gray-800">
+        <a
+          href={job.companyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium hover:underline text-base sm:text-lg lg:text-md text-gray-800"
+        >
           {job.title || 'No Job Title'}
-        </h2>
+        </a>
 
         {/* Job Details */}
         <h2 className="flex items-center gap-2">
@@ -57,7 +71,7 @@ const JobCard = ({ job }) => {
         {/* Company Logo */}
         <div className="flex gap-3 items-center">
           <Image
-            src={job.companyLogo.url || '/google_logo.png'} // Use job.companyLogo if available
+            src={job.companyLogo?.url || '/google_logo.png'} // Use job.companyLogo if available
             alt="Company Logo"
             width={44}
             height={44}
@@ -84,7 +98,7 @@ const JobCard = ({ job }) => {
           onClick={toggleBookmark}
         >
           <Image
-            src={isBookmarked ? "/bookmark-filled.png" : "/bookmark-unfilled.png"}
+            src={isBookmarked ? '/bookmark-filled.png' : '/bookmark-unfilled.png'}
             alt="Bookmark Icon"
             width={20}
             height={20}
@@ -92,7 +106,7 @@ const JobCard = ({ job }) => {
           />
         </div>
       </div>
-    </a>
+    </div>
   );
 };
 

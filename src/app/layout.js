@@ -3,6 +3,7 @@
 import "./globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+
 const queryClient = new QueryClient();
 
 export default function RootLayout({ children }) {
@@ -12,7 +13,7 @@ export default function RootLayout({ children }) {
         <QueryClientProvider client={queryClient}>
           <header className="sticky top-0 z-50"></header>
 
-          <main>{children}</main>
+          <main>{children} </main>
 
           <footer className="h-10 w-full bg-[#18191c] fixed bottom-0 justify-around flex items-center ">
             <div>
