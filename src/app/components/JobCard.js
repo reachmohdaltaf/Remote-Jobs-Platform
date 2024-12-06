@@ -57,7 +57,7 @@ const JobCard = ({ job }) => {
         {/* Company Logo */}
         <div className="flex gap-3 items-center">
           <Image
-            src={job.companyLogo?.url || '/google_logo.png'} // Use job.companyLogo if available
+            src={job.companyLogo.url || '/google_logo.png'} // Use job.companyLogo if available
             alt="Company Logo"
             width={44}
             height={44}
